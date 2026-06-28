@@ -83,6 +83,10 @@ nav.scrolled .navlinks .btn-light{background:var(--forest);color:var(--bone)}
     font-size:26px;font-family:'Cormorant Garamond',serif;transform:translateX(100%);transition:transform .5s cubic-bezier(.6,0,.2,1)}
   .navlinks.open{transform:none}
   .navlinks a:not(.btn)::after{display:none}
+  .navlinks a.active:not(.btn){color:var(--champagne-lt)}
+  nav.scrolled .navlinks,.navlinks{color:var(--bone)}
+  nav .navlinks .btn-light,nav.scrolled .navlinks .btn-light{background:var(--bone);color:var(--forest);padding:14px 34px;border-radius:40px;margin-top:8px}
+  .burger.open span{background:var(--bone)}
 }
 
 /* ===== HERO ===== */
@@ -368,14 +372,35 @@ h1,h2,h3,.display,.h2,.page-head h1{text-wrap:balance}
   .sec{padding:84px 0}
   .band{padding:56px 30px;border-radius:42px;margin:0 4vw}
   .page-head{padding:140px 6vw 56px}
-  .props{gap:30px 22px}
-  .prop .ph{height:340px}
+  .props{grid-template-columns:1fr;gap:30px}     /* single column — no 320px overflow on small phones */
+  .prop .ph{height:300px}
+  .prop .body{padding:18px 4px 0}
+  .hoods{gap:14px}
+  .hood{height:230px}
+  .hood .cap h4{font-size:21px}
+  .quote{padding:30px 26px}
+  .quote p{font-size:19px}
+  .hero-cta{gap:14px}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .hero-meta{gap:26px 34px}
   .dash{padding:120px 6vw 80px}
   .dash-cols{gap:20px}
   .panel{padding:24px}
+  .kpi{padding:22px}
+  .kpi .n{font-size:44px}
   .lead-row{flex-wrap:wrap}
   .lead-row .when{order:3}
+  .mini-bars{gap:8px}
+  .barcol .v{font-size:20px}
+  .barcol .lbl{font-size:10px;letter-spacing:0}
   .filterbar{gap:18px}
+  .feature-list{grid-template-columns:1fr}
+  .pd-key{gap:22px 30px}
+}
+@media(max-width:420px){
+  .hoods{grid-template-columns:1fr}
+  .hood{height:200px}
+  .kpis{grid-template-columns:1fr}
 }
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}.reveal{opacity:1;transform:none}}
