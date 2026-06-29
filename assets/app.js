@@ -37,6 +37,9 @@ function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 let FAVS = load("meridian_favs");
 let LEADS = load("meridian_leads");
 
+/* mark JS active so .reveal only hides when we can also reveal it */
+document.documentElement.classList.add("js");
+
 /* ---------- nav + reveal ---------- */
 (function(){
   const nav=document.getElementById("nav"),burger=document.getElementById("burger"),links=document.getElementById("navlinks");
@@ -46,8 +49,13 @@ let LEADS = load("meridian_leads");
 })();
 (function(){
   const els=document.querySelectorAll(".reveal");if(!els.length)return;
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+  const reveal=e=>e.classList.add("in");
+  if(!("IntersectionObserver" in window)){els.forEach(reveal);return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){reveal(e.target);io.unobserve(e.target)}}),{threshold:0,rootMargin:"0px 0px -6% 0px"});
   els.forEach(el=>io.observe(el));
+  /* safety net: never leave on-screen content stuck hidden */
+  const sweep=()=>els.forEach(e=>{if(!e.classList.contains("in")){const r=e.getBoundingClientRect();if(r.top<innerHeight*1.15&&r.bottom>-50)reveal(e)}});
+  addEventListener("load",sweep);addEventListener("scroll",sweep,{passive:true});setTimeout(sweep,1500);
 })();
 
 /* ---------- property cards ---------- */
